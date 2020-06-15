@@ -21,6 +21,6 @@ oficinas, bancos, tiendas y un sinnumero de lugares.
 1. Sensor basado en Radar
 -MICROONDAS 
 -ULTRASÓNICO 
-2. Sensor infrarojo pasivo
-3. Sensor de foto
+2. Sensor LED infrarojo tranmisor con fotoreceptor
+3. Sensor infrarojo pasivo (PIR)
 
