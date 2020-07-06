@@ -1,5 +1,5 @@
 # ACTUALIZAR LOS CAMBIOS 
-#  Dispensador de Gel Automatico y Termometro digital
+#  Proyecto Dispensador de Gel Automatico 
 
 
 Este es un repositorio en donde se va a ir desarrollando nuestro proyecto final para la materia de Cricuitos Electronicos lV de la carrera de ing. mecatronica de la Universidad Latina de Panamá. Estudiantes: Carlos Serracin y Aaron Mclean. Profesor: Pablo González Robles.
@@ -19,10 +19,16 @@ Esta es la manera en la que buscamos estructurar nuestro microcontrolador y pues
 oficinas, bancos, tiendas y un sinnumero de lugares.
 
 
-### Tipos de sensores para el dispensador
-1. Sensor basado en Radar
--MICROONDAS 
--ULTRASÓNICO 
-2. Sensor LED infrarojo tranmisor con fotoreceptor
-3. Sensor infrarojo pasivo (PIR)
+## Servo motor y PWM
+![image](https://user-images.githubusercontent.com/66341655/86657713-12de6180-bfae-11ea-988f-512e9ec3371f.png)
+El servo motor es un componente que contiene basicamente un motor dc dentro, junto a una sere de engranajes; y se caracteriza por poder ser controlable en cuanto posicion se refiere. Para que esto sea posible, el PWM juega un papel importante. El servo tiene 3 pines, el de alimentacion (**+5V**), el de tierra y el de señal por donde entraran los pulsos o la señal PWM.
+![pwm_servo_9g](https://user-images.githubusercontent.com/66341655/86658446-afa0ff00-bfae-11ea-833c-b651269a1144.png)
+Este servo motor se mueve en un rango de 0 a 180°. Para mover el servomotor a la posicion de 0°, es necesario un pulso de 1.5ms, para moverse hacia la derecha completamente hacia los 90° positivos, es necesario un pulso aproximado de 2ms y para moverse hacia la izquierda completamente es decir, hacia los 90° negativos, es necesario un pulso de aproximadamente 1ms.
+Es importante resaltar que, para el PWM tenga un funcionamioento adecuado en este servomotor, se necesita generar un PWM a una frecuencia de 50Hz, es decir ondas de 20ms.
+
+##Duty Cycle
+El duty cycle es una medida que se utiliza para represantar que porcentaje del periodo de nuestra Onda cuadrada, en nuestro caso, va a estar en high y que porcentaje de la onda va a esta en low.
+Si decimosque queremos un duty cycle del 30%, eso quiere decir que la onda va a estar 30% en High y un 70% en Low. Ojo, esto suponiendo que estamos trabajando el el modo PWM-No-Invertido. 
+Pues sí, exite un modo PWM, invertido pero en la elaboracion de nuestro proyecto no lo usaremos, por ello, obviaremos su explicacion.
+
 
