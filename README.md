@@ -21,14 +21,38 @@ oficinas, bancos, tiendas y un sinnumero de lugares.
 
 ## Servo motor y PWM
 ![image](https://user-images.githubusercontent.com/66341655/86657713-12de6180-bfae-11ea-988f-512e9ec3371f.png)
+
 El servo motor es un componente que contiene basicamente un motor dc dentro, junto a una sere de engranajes; y se caracteriza por poder ser controlable en cuanto posicion se refiere. Para que esto sea posible, el PWM juega un papel importante. El servo tiene 3 pines, el de alimentacion (**+5V**), el de tierra y el de señal por donde entraran los pulsos o la señal PWM.
 ![pwm_servo_9g](https://user-images.githubusercontent.com/66341655/86658446-afa0ff00-bfae-11ea-833c-b651269a1144.png)
+
 Este servo motor se mueve en un rango de 0 a 180°. Para mover el servomotor a la posicion de 0°, es necesario un pulso de 1.5ms, para moverse hacia la derecha completamente hacia los 90° positivos, es necesario un pulso aproximado de 2ms y para moverse hacia la izquierda completamente es decir, hacia los 90° negativos, es necesario un pulso de aproximadamente 1ms.
 Es importante resaltar que, para el PWM tenga un funcionamioento adecuado en este servomotor, se necesita generar un PWM a una frecuencia de 50Hz, es decir ondas de 20ms.
 
-##Duty Cycle
+## Duty Cycle
 El duty cycle es una medida que se utiliza para represantar que porcentaje del periodo de nuestra Onda cuadrada, en nuestro caso, va a estar en high y que porcentaje de la onda va a esta en low.
 Si decimosque queremos un duty cycle del 30%, eso quiere decir que la onda va a estar 30% en High y un 70% en Low. Ojo, esto suponiendo que estamos trabajando el el modo PWM-No-Invertido. 
 Pues sí, exite un modo PWM, invertido pero en la elaboracion de nuestro proyecto no lo usaremos, por ello, obviaremos su explicacion.
 
+## Explicacion del código
+Bien, primero que todo, ya sabiendo las razones por las que escogimos cada uno de los componentes a utilizar en el hardware de nuestro dispositivo, ahora vamos a la programacion de nuestro microcontrolador. 
+En este punto del desarrollo del proyecto es donde ponemos en práctica todo lo aprendido durante el curso. Sin la programacion de nuestro micro-controlador, nuestro proyecto detectaría nada y tampoco se movería ningun motor.
 
+1) En esta linea observamos que estamos seteando la Frecuencia de nuestra CPU del microcontrolador a 1MHz, por qué esta frecuencia pues, basicamente por dos razones, la primera, es que esta frecuencia nos funciona para luego generar un PWM de 20Ms de periodo y segundo porque a esta Velocidad nuestro CPU es Eficiente, en terminos de consumo y velocidad.
+Adicionalmente tambien observamos que incluímos la librería `<avr/io.h>`, para nuestro Chip atmel, la librería `<util/delay.h>`, para habilitar el funcionamiento de un delay y el `<avr/interrupt.h>`, pues para las interrupciones.
+```
+#define F_CPU 1000000UL
+#include <avr/io.h>
+#include <util/delay.h>
+#include <avr/interrupt.h>
+```
+
+2) Ahora definimos 2 variables muy importantes que nos van a ayudar dentro del while loop de nuestra funcion Main. El `previousReading` va a ser utilizado para sensiorarnos y notificar lo que se acaba de leer,lo explicaremos con detalles en el while loop y el `estadoMano` para en teoría revisar si el sensor aun está detectando la mano.
+Definimos, la señal del sensor como `s_signal` en el puerto D1 y la señal `servo` en el Puerto B1 (PORTB1), porque ahí es donde podremos configurar el registro OC1A, que usaremos para nuestro PWM.
+```
+uint8_t previousReading  = 1;
+uint8_t estadoMano = 1;
+
+#define s_signal PORTD1
+#define servo PORTB1
+```
+3) 
