@@ -55,4 +55,22 @@ uint8_t estadoMano = 1;
 #define s_signal PORTD1
 #define servo PORTB1
 ```
-3) 
+3) Ahora, escribimos la funcion `init_servo` generar un PWM para el servo 
+```
+void init_servo(void)
+{
+	DDRB |= (1<<servo);	//vamos a utilizar este pin del registro B como  (OC1A)
+	TCNT1 = 0;		// registro de timer 1 a 0
+	ICR1 = 2499;	// vamos a contar hasta el valor de ICR1
+
+
+	TCCR1A |=
+	(1<<COM1A1) |(0<<COM1A0) // seteamos el registro OC1A a BOTTOM  en el modo No-inversor
+	|(1<<WGM11) |(0<<WGM10); // Utilizamos el modo de generacion de forma de onda #14 (Fast PWM, TOP = ICR1, UPDATE OCR1A at BOTTOM, TOV1 FLAG set on TOP )
+	
+	TCCR1B |=
+	(1<<WGM13) | (1<<WGM12) //Estos otros 2 bits tambien son para el seteo de forma de Onda #14 que hicimos arriba
+	|(0<<CS12) |(1<<CS11)|(0<<CS10); // seteamos un pre-escalador de reloj de 8 para la frecuencia de PWM 
+}
+``` 
+
