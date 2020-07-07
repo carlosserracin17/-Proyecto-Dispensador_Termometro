@@ -32,7 +32,7 @@ Los materiales que utilizamos son los siguientes:
 ## Funcionamiento sintetizado
 Comenzamos cuando el sensor detecta si hay un obstáculo (la mano) o no y manda una señal  a nuestro microcontrolador la cual activa el servomotor durante un tiempo (2seg) y así poder dispensar el líquido o sustancia a utilizar para descontaminar nuestras manos. 
 
-# Estructura de nuestro dispositivo y explicacion de conceptos
+## Estructura de nuestro dispositivo y explicacion de conceptos  
 Este dispositivo funciona a base de un modulo Infra rojo, el cual es el encargado del sensado, tambien tiene un servo motor, que es el que se encarga de la ejecucion de movimientos y por ultimo pero no menos importante nuestro amigo el ATmega328P.
 
 ## Sensor Infrarrojo
@@ -58,9 +58,11 @@ Sin embargo, decidimos cambiar a algo más fácil y práctico un sensor Infraroj
  
 
 ## Servo motor y PWM
+
 ![image](https://user-images.githubusercontent.com/66341655/86657713-12de6180-bfae-11ea-988f-512e9ec3371f.png)
 
 El servo motor es un componente que contiene basicamente un motor DC dentro, junto a una sere de engranajes; y se caracteriza por poder ser controlable en cuanto posicion se refiere. Para que esto sea posible, el PWM juega un papel importante. El servo tiene 3 pines, el de alimentacion (**+5V**), el de tierra y el de señal por donde entraran los pulsos o la señal PWM.
+
 ![pwm_servo_9g](https://user-images.githubusercontent.com/66341655/86658446-afa0ff00-bfae-11ea-833c-b651269a1144.png)
 
 Este servo motor se mueve en un rango de 0 a 180°. Para mover el servomotor a la posicion de 0°, es necesario un pulso de 1.5ms, para moverse hacia la derecha completamente hacia los 90° positivos, es necesario un pulso aproximado de 2ms y para moverse hacia la izquierda completamente es decir, hacia los 90° negativos, es necesario un pulso de aproximadamente 1ms.
@@ -73,7 +75,7 @@ Pues sí, exite un modo PWM, invertido pero en la elaboracion de nuestro proyect
 
 ## Explicacion del código
 Bien, primero que todo, ya sabiendo las razones por las que escogimos cada uno de los componentes a utilizar en el hardware de nuestro dispositivo, ahora vamos a la programacion de nuestro microcontrolador. 
-En este punto del desarrollo del proyecto es donde ponemos en práctica todo lo aprendido durante el curso. Sin la programacion de nuestro micro-controlador, nuestro proyecto detectaría nada y tampoco se movería ningun motor.
+En este punto del desarrollo del proyecto es donde ponemos en práctica todo lo aprendido durante el curso. Sin la programacion de nuestro micro-controlador, nuestro proyecto detectaría nada y tampoco se movería ningun motor.(Puede ver el codigo en el repo)
 
 1.  En esta linea observamos que estamos seteando la Frecuencia de nuestra CPU del microcontrolador a 1MHz, por qué esta frecuencia pues, basicamente por dos razones, la primera, es que esta frecuencia nos funciona para luego generar un PWM de 20Ms de periodo y segundo porque a esta Velocidad nuestro CPU es Eficiente, en terminos de consumo y velocidad.
 Adicionalmente tambien observamos que incluímos la librería `<avr/io.h>`, para nuestro Chip atmel, la librería `<util/delay.h>`, para habilitar el funcionamiento de un delay y el `<avr/interrupt.h>`, pues para las interrupciones.
