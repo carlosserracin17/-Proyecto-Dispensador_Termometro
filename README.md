@@ -11,6 +11,8 @@ Este proyecto fue pensado como una solución para los problemas que hoy se enfre
 
 Los sanitizadores de manos han llegado para cumplir un rol indispensable en la sociedad que enfrenta la pandemia, debido al hecho que nuestras manos son la parte de nuestro cuerpo que están en constante contacto con el medio, y por ende ser un ente portador del virus y distribuidor de el, pues así como vemos, no solo podríamos portar el virus para contagiarnos a nosotros mismos, sino también llevarlo desde el punto A, donde había contagio, al punto B donde no había virus.
 
+![image](https://user-images.githubusercontent.com/66341655/86718492-c106fd00-bfe8-11ea-8034-c205215f36bc.png)
+
 Los sanitizadores cumplen la labor de eliminar todos los gérmenes y virus que puedan estar en tus manos, y así evitar tanto la propagación como el contagio.
 
 Los sanitizadores comunes trabajan mediante una válvula mecánica que se abre y se cierra al contacto de la mano, sin embargo, hemos visto en la actualidad que ya existen sanitizadores con luz infrarroja que reconocen la presencia del individuo y proporcionan el liquido sanitizante sin que la persona tenga que tocar ningún objeto. Aquí radica el punto más importante de nuestro proyecto.
