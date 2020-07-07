@@ -1,6 +1,5 @@
 
-#  Proyecto Dispensador de Gel Automatico 
-### Fase 1
+#  Proyecto Dispensador de Gel Automatico (Fase 1)
 
 
 Este es un repositorio en donde se va a ir desarrollando nuestro proyecto final para la materia de Cricuitos Electronicos lV de la carrera de ing. mecatronica de la Universidad Latina de Panamá. Estudiantes: Carlos Serracin y Aaron Mclean. Profesor: Pablo González Robles.
@@ -18,6 +17,45 @@ Los sanitizadores comunes trabajan mediante una válvula mecánica que se abre y
 
 Esta es la manera en la que buscamos estructurar nuestro microcontrolador y pues claro, utilizando la tecnología más reciente que se tenga a la mano con el fín de mejorar el funcionamiento y la disposición actual de estos equipos que forman parte de nuestra vida diaria, y no solo en los recintos públicos o restaurantes y baños, sino incluso ahora en las puertas de entrada de las casas, oficinas, bancos, tiendas y un sinnúmero de lugares.
 
+## Materiales
+Para la simulación se utiliza el software de Proteus, donde se simula el código funcionando con los componentes utilizados. 
+Los materiales que utilizamos son los siguientes:
+* El atemega328p
+* Un led verde
+* Un servomotor
+* Una resistencia de 1K Ohm
+* Un infra red sensor (detector de obstáculos infrarrojo)
+* Un activador analógico 
+
+![image](https://user-images.githubusercontent.com/66341655/86710420-9153f700-bfe0-11ea-8bf8-ad687e50c5a1.png)
+
+## Funcionamiento sintetizado
+Comenzamos cuando el sensor detecta si hay un obstáculo (la mano) o no y manda una señal  a nuestro microcontrolador la cual activa el servomotor durante un tiempo (2seg) y así poder dispensar el líquido o sustancia a utilizar para descontaminar nuestras manos. 
+
+# Estructura de nuestro dispositivo y explicacion de conceptos
+Este dispositivo funciona a base de un modulo Infra rojo, el cual es el encargado del sensado, tambien tiene un servo motor, que es el que se encarga de la ejecucion de movimientos y por ultimo pero no menos importante nuestro amigo el ATmega328P.
+
+## Sensor Infrarrojo
+Un sensor de infrarrojos (IR) es un dispositivo electrónico que mide y detecta la radiación infrarroja en su entorno. El IR es invisible para el ojo humano, ya que su longitud de onda es más larga que la de la luz visible (aunque todavía está en el mismo espectro electromagnético).
+
+**Comunicación Infrarroja:**
+- La luz IR es como la luz visible, pero es invisible a nuestros ojos, por lo que son adecuados para la aplicación de la comunicación inalámbrica.
+- La banda para IR (infrarrojo) en el espectro electromagnético es de 300 GHz a 430 THz y un rango de longitud de onda de alrededor de 700 nm a 1 mm.
+- Junto con el LED IR, algunas otras fuentes como el sol, bombillas, cuerpos humanos y animales, etc. también emiten energía infrarroja.
+
+**Principio de funcionamiento  de la comunicación IR**
+- La comunicación IR se utiliza para aplicaciones de corta y media distancia.
+- Los LED IR transmiten datos digitales (1 y 0 lógicos) en forma de luz infrarroja.
+- El 1 lógico se emite manteniendo el LED IR encendido y el 0 lógico manteniéndolo apagado.
+- Esta secuencia de datos ON y OFF es recopilada por el fotodiodo IR en el extremo del receptor
+
+**¿Cómo lo implementaremos nosotros?**
+
+Primeramente hicimos el diseño en easyEDA de un módulo detector de obstáculos utilizando infrarrojo, guiándonos de diseños existentes. Este módulo nos ayudaba a manejar la señal recibida utilizando un OPAMP en modo de comparador, para así determinar cuando el dispositivo foto receptor está recibiendo la señal comparándola con la señal de VCC.
+(Puede ver el esquema en el repositorio con el nombre de Schematic_SENSOR)
+Sin embargo, decidimos cambiar a algo más fácil y práctico un sensor Infrarojo que fue desarrollado por nuestros amigos de Engineering Projects,pero el funcionamiento es el mismo.
+ [enlace al sitio](https://www.theengineeringprojects.com/)
+ 
 
 ## Servo motor y PWM
 ![image](https://user-images.githubusercontent.com/66341655/86657713-12de6180-bfae-11ea-988f-512e9ec3371f.png)
