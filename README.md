@@ -37,7 +37,7 @@ Pues sí, exite un modo PWM, invertido pero en la elaboracion de nuestro proyect
 Bien, primero que todo, ya sabiendo las razones por las que escogimos cada uno de los componentes a utilizar en el hardware de nuestro dispositivo, ahora vamos a la programacion de nuestro microcontrolador. 
 En este punto del desarrollo del proyecto es donde ponemos en práctica todo lo aprendido durante el curso. Sin la programacion de nuestro micro-controlador, nuestro proyecto detectaría nada y tampoco se movería ningun motor.
 
-1) En esta linea observamos que estamos seteando la Frecuencia de nuestra CPU del microcontrolador a 1MHz, por qué esta frecuencia pues, basicamente por dos razones, la primera, es que esta frecuencia nos funciona para luego generar un PWM de 20Ms de periodo y segundo porque a esta Velocidad nuestro CPU es Eficiente, en terminos de consumo y velocidad.
+1.  En esta linea observamos que estamos seteando la Frecuencia de nuestra CPU del microcontrolador a 1MHz, por qué esta frecuencia pues, basicamente por dos razones, la primera, es que esta frecuencia nos funciona para luego generar un PWM de 20Ms de periodo y segundo porque a esta Velocidad nuestro CPU es Eficiente, en terminos de consumo y velocidad.
 Adicionalmente tambien observamos que incluímos la librería `<avr/io.h>`, para nuestro Chip atmel, la librería `<util/delay.h>`, para habilitar el funcionamiento de un delay y el `<avr/interrupt.h>`, pues para las interrupciones.
 ```
 #define F_CPU 1000000UL
@@ -46,7 +46,7 @@ Adicionalmente tambien observamos que incluímos la librería `<avr/io.h>`, para
 #include <avr/interrupt.h>
 ```
 
-2) Ahora definimos 2 variables muy importantes que nos van a ayudar dentro del while loop de nuestra funcion Main. El `previousReading` va a ser utilizado para sensiorarnos y notificar lo que se acaba de leer,lo explicaremos con detalles en el while loop y el `estadoMano` para en teoría revisar si el sensor aun está detectando la mano.
+2. Ahora definimos 2 variables muy importantes que nos van a ayudar dentro del while loop de nuestra funcion Main. El `previousReading` va a ser utilizado para sensiorarnos y notificar lo que se acaba de leer,lo explicaremos con detalles en el while loop y el `estadoMano` para en teoría revisar si el sensor aun está detectando la mano.
 Definimos, la señal del sensor como `s_signal` en el puerto D1 y la señal `servo` en el Puerto B1 (PORTB1), porque ahí es donde podremos configurar el registro OC1A, que usaremos para nuestro PWM.
 ```
 uint8_t previousReading  = 1;
@@ -55,7 +55,7 @@ uint8_t estadoMano = 1;
 #define s_signal PORTD1
 #define servo PORTB1
 ```
-3) Ahora, escribimos la funcion `init_servo` generar un PWM para el servo. En esta parte, colocamos la explicacion de cada linea, alado del codigo, para una mejor comprension y visualizacion. 
+3. Ahora, escribimos la funcion `init_servo` generar un PWM para el servo. En esta parte, colocamos la explicacion de cada linea, alado del codigo, para una mejor comprension y visualizacion. 
 ```
 void init_servo(void)
 {
@@ -73,4 +73,44 @@ void init_servo(void)
 	|(0<<CS12) |(1<<CS11)|(0<<CS10); // seteamos un pre-escalador de reloj de 8 para la frecuencia de PWM 
 }
 ``` 
+4. Aqui es donde viene la ejecucion de nuestra funcion principal.
+```
+int main(void)
+{
+	cli();  //anulamos las interrupciones globales
+	init_servo(); //incializamos la funcion servo
+	sei(); //habilitamos las funciones globales
+	
+	//Aqui vamos a establecer el puerto D1 (s_signal) como una entrada, que será la señal proveniente del sensor
+	DDRD &=~ (1<<s_signal);
+	PORTD = (1<<s_signal);
+	
+	OCR1A = 125; // inicializamos el servomotor en 90° negatios (-88.6) realmente. Esta será su posicion en reposo
+	
+	
+	while (1) //En este while se le dice al maicro lo que debe hacer y en que orden lo debe hacer
+	{
+		if ((PIND & (1<<s_signal))!= previousReading) // Aqui le estoy diciendo: Si estoy recibiendo un 1 en el sensor y no es igual a previousReading entonces hago esto 
+		{
+			
+			if (!estadoMano)// ahora, si el estado de la mano (1= si se ha puesto la mano 0= si no se ha puesto la mano)Esto no tiene nada que ver con la señal del sensor
+			{
+				OCR1A = 187;
+				_delay_ms(2000);	  //de ser así entonces muevo el servo a 0° y espero 2 seg	
+				estadoMano = 1;
+			}
+			else
+			{
+				estadoMano = 0;
+			}
+			
+			OCR1A = 125;        //Cuando entonces salga de esa comrobacion y ejecucion el volverá a su estado de reposo
+			_delay_ms(2000);
+			previousReading = (PIND & (1<<s_signal)); //incluso si la mano sigue estando debajo del sensor
+			
+		}
+		
+	}
+}
 
+```
