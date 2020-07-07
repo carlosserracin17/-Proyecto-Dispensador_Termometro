@@ -1,4 +1,4 @@
-# ACTUALIZAR LOS CAMBIOS 
+
 #  Proyecto Dispensador de Gel Automatico 
 
 
@@ -55,7 +55,7 @@ uint8_t estadoMano = 1;
 #define s_signal PORTD1
 #define servo PORTB1
 ```
-3) Ahora, escribimos la funcion `init_servo` generar un PWM para el servo 
+3) Ahora, escribimos la funcion `init_servo` generar un PWM para el servo. En esta parte, colocamos la explicacion de cada linea, alado del codigo, para una mejor comprension y visualizacion. 
 ```
 void init_servo(void)
 {
